@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(180deg, #0f0f0f, #1a1a1a);
+    color: white;
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TEXTO ANIMADO */
+.animacao {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    animation: flutuar 2s ease-in-out infinite alternate;
+}
+
+@keyframes flutuar {
+    from {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+    to {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+/* CAIXA PRINCIPAL */
+.caixa {
+    width: 90%;
+    max-width: 360px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+
+/* TEXTO */
+.texto {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+/* INPUT */
+input {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+/* BOTÃO */
+button {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: none;
+    background: #ff69b4;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* MENSAGEM */
+#mensagem {
+    margin-top: 12px;
+    color: #ffb6c1;
+    font-size: 0.95rem;
+}
+
+/* TELAS MENORES */
+@media (max-height: 600px) {
+    .animacao {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+}

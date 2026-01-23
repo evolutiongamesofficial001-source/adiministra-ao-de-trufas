@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+}
+
+/* FUNDO COM A IMAGEM */
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background-image: url("adm pedidos.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* QUADRO CENTRAL */
+.quadro {
+    width: 85%;
+    max-width: 360px;
+    height: 55%;
+
+    background: rgba(245, 210, 220, 0.9);
+    border-radius: 18px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* TÍTULO */
+.quadro h2 {
+    margin: 0 0 10px;
+    text-align: center;
+    color: #6b0036;
+    font-size: 1.2rem;
+}
+
+/* LISTA DE PEDIDOS */
+.lista {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* CARD DO PEDIDO */
+.pedido {
+    background: rgba(255,255,255,0.85);
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.pedido strong {
+    color: #6b0036;
+}
+
+/* BOTÃO CONFIRMAR */
+.confirmar {
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 14px;
+    background: #d87ca1;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.confirmar:active {
+    transform: scale(0.97);
+}
