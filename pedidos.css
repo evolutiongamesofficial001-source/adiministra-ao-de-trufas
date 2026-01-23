@@ -2,77 +2,146 @@
     box-sizing: border-box;
 }
 
-/* FUNDO COM A IMAGEM */
 body {
     margin: 0;
-    height: 100vh;
     font-family: "Segoe UI", Arial, sans-serif;
-
-    background-image: url("adm pedidos.jpeg");
+    background: url("adm\ pedidos.jpeg") no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+}
 
+/* TOPO */
+header {
+    background: rgba(255, 105, 180, 0.9);
+    padding: 14px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #4a0033;
+    font-weight: bold;
 }
 
-/* QUADRO CENTRAL */
-.quadro {
-    width: 85%;
-    max-width: 360px;
-    height: 55%;
-
-    background: rgba(245, 210, 220, 0.9);
-    border-radius: 18px;
-    padding: 16px;
-
-    display: flex;
-    flex-direction: column;
-}
-
-/* TÍTULO */
-.quadro h2 {
-    margin: 0 0 10px;
-    text-align: center;
-    color: #6b0036;
+header h1 {
+    margin: 0;
     font-size: 1.2rem;
 }
 
-/* LISTA DE PEDIDOS */
-.lista {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 4px;
+/* BOTÃO VOLTAR */
+.btn-voltar {
+    position: absolute;
+    left: 12px;
+    background: rgba(255,255,255,0.8);
+    border: none;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #7a1244;
 }
 
-/* CARD DO PEDIDO */
+.btn-voltar:active {
+    transform: scale(0.95);
+}
+
+/* AREA CENTRAL */
+main {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+/* LISTA COM ROLAGEM */
+.lista {
+    width: 100%;
+    max-width: 420px;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+/* CARD */
 .pedido {
-    background: rgba(255,255,255,0.85);
-    border-radius: 12px;
-    padding: 10px;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.93);
+    border-radius: 18px;
+    padding: 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    animation: aparecer 0.3s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .pedido strong {
-    color: #6b0036;
+    font-size: 1.05rem;
+    color: #7a1244;
 }
 
-/* BOTÃO CONFIRMAR */
-.confirmar {
+.pedido small {
+    color: #777;
+}
+
+/* SABORES */
+.area-sabores {
+    background: #ffe3ee;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 6px 0;
+}
+
+.area-sabores ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.area-sabores li {
+    font-size: 0.9rem;
+    color: #4a0033;
+}
+
+/* TOTAL */
+.total {
+    color: #b10050;
+    font-weight: bold;
+}
+
+/* BOTÃO ENTREGUE */
+.botao-entregue {
+    width: 100%;
     margin-top: 10px;
     padding: 12px;
     border: none;
     border-radius: 14px;
-    background: #d87ca1;
+    background: linear-gradient(180deg, #ff5fa2, #d63b7d);
     color: white;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
 }
 
-.confirmar:active {
+.botao-entregue:active {
     transform: scale(0.97);
+}
+
+/* ALERTA */
+.alerta {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #b8326a, #8a1e4b);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    z-index: 999;
 }

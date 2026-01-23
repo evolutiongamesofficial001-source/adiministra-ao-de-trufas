@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Pedidos</title>
+    <title>Área ADM - Pedidos</title>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <link rel="stylesheet" href="pedidos.css">
 </head>
 <body>
 
-    <!-- ÁREA CENTRAL (onde entram os pedidos) -->
-    <div class="quadro">
-        <h2>Pedidos Pendentes</h2>
+<!-- ALERTA -->
+<div id="alerta" class="alerta" style="display:none;">
+    🍫 Novo pedido recebido!
+</div>
 
-        <div class="lista" id="listaPedidos"></div>
+<header>
+    <button class="btn-voltar" onclick="voltarPainel()">⬅</button>
+    <h1>Pedidos</h1>
+</header>
 
-        <button class="confirmar" onclick="confirmarPedidos()">
-            Confirmar
-        </button>
-    </div>
+<main>
+    <div id="listaPedidos" class="lista"></div>
+</main>
 
-    <script src="pedidos.js"></script>
+<script src="pedidos.js"></script>
 </body>
 </html>

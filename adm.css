@@ -1,46 +1,104 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background: linear-gradient(180deg, #f8b6c8, #f4a3be);
-    font-family: "Segoe UI", Arial, sans-serif;
     margin: 0;
-    height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(180deg, #ffe0ec, #ffd1e4);
 }
 
-.adm-container {
-    background: rgba(255,255,255,0.9);
-    width: 90%;
-    max-width: 360px;
-    border-radius: 20px;
-    padding: 24px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-h1 {
+/* TOPO */
+header {
+    background: #ff6fae;
     color: #4a0033;
-    margin-bottom: 10px;
+    padding: 16px;
+    text-align: center;
+    font-weight: bold;
 }
 
-p {
-    color: #7a004f;
-    margin-bottom: 20px;
+/* CONTEÚDO */
+main {
+    padding: 20px;
+    max-width: 420px;
+    margin: auto;
 }
 
-button {
+/* BOTÕES */
+.btn {
     width: 100%;
     padding: 14px;
-    font-size: 1.1rem;
+    margin-bottom: 12px;
     border: none;
-    border-radius: 14px;
-    background: #ff69b4;
-    color: #000;
+    border-radius: 16px;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
 }
 
-button:active {
-    transform: scale(0.97);
+.principal {
+    background: linear-gradient(180deg, #ff5fa2, #d63b7d);
+    color: white;
+}
+
+.secundario {
+    background: #fff;
+    color: #7a1244;
+}
+
+.cancelar {
+    background: #eee;
+}
+
+/* LISTA SABORES */
+.lista {
+    margin-top: 10px;
+}
+
+.sabor {
+    background: white;
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sabor strong {
+    color: #7a1244;
+}
+
+.sabor small {
+    color: #555;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-conteudo {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 320px;
+}
+
+.modal-conteudo h3 {
+    margin-top: 0;
+}
+
+.modal-conteudo input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
 }

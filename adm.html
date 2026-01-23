@@ -3,18 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área ADM</title>
+    <title>Painel Administrador</title>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <link rel="stylesheet" href="adm.css">
 </head>
 <body>
 
-    <div class="adm-container">
-        <h1>Área Administrativa</h1>
-        <p>Bem-vinda, Ana</p>
+<header>
+    <h1>Painel ADM</h1>
+</header>
 
-        <button onclick="irPedidos()">Analisar pedidos</button>
+<main>
+    <button class="btn principal" onclick="irPedidos()">📦 Ver pedidos</button>
+    <button class="btn secundario" onclick="abrirModal()">➕ Adicionar sabor</button>
+
+    <h2>Sabores cadastrados</h2>
+    <div id="listaSabores" class="lista"></div>
+</main>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-conteudo">
+        <h3>Novo sabor</h3>
+
+        <input id="nome" type="text" placeholder="Nome do sabor">
+        <input id="pequena" type="number" placeholder="Valor pequena (opcional)">
+        <input id="grande" type="number" placeholder="Valor grande (opcional)">
+
+        <button class="btn principal" onclick="salvarSabor()">Salvar</button>
+        <button class="btn cancelar" onclick="fecharModal()">Cancelar</button>
     </div>
+</div>
 
-    <script src="adm.js"></script>
+<script src="adm.js"></script>
 </body>
 </html>
