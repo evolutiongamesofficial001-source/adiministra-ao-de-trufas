@@ -14,37 +14,31 @@ const alerta = document.getElementById("alerta");
 const modal = document.getElementById("modal");
 const modalTexto = document.getElementById("modalTexto");
 
-let pedidosExistentes = new Set();
 let primeiraCarga = true;
+let pedidosExistentes = new Set();
 
-// VOLTAR
+// ===== FUNÇÕES =====
 function voltarPainel() {
     window.location.href = "adm.html";
 }
 
-// ALERTA
 function mostrarAlerta() {
     alerta.style.display = "block";
     setTimeout(() => alerta.style.display = "none", 3000);
 }
 
-// RESUMIR TEXTO
-function resumir(texto, limite = 60) {
+function resumir(texto, limite = 70) {
     if (!texto) return "—";
     return texto.length > limite ? texto.slice(0, limite) + "..." : texto;
 }
 
-// MODAL — MOSTRA SÓ A LINHA DO PEDIDO
 function abrirModal(pedido) {
-    if (pedido.pedido) {
-        modalTexto.textContent = pedido.pedido;
-    } else if (pedido.sabores) {
-        modalTexto.textContent = Array.isArray(pedido.sabores)
+    modalTexto.textContent =
+        pedido.pedido ||
+        (Array.isArray(pedido.sabores)
             ? pedido.sabores.join(", ")
-            : pedido.sabores;
-    } else {
-        modalTexto.textContent = "Pedido não informado.";
-    }
+            : pedido.sabores || "Pedido não informado");
+
     modal.style.display = "flex";
 }
 
@@ -52,16 +46,17 @@ function fecharModal() {
     modal.style.display = "none";
 }
 
-// LISTENER FIREBASE
+// FECHAR MODAL TOCANDO FORA
+modal.addEventListener("pointerdown", (e) => {
+    if (e.target === modal) fecharModal();
+});
+
+// ===== LISTENER FIREBASE =====
 database.ref("pedidos").on("value", snapshot => {
     lista.innerHTML = "";
 
     if (!snapshot.exists()) {
-        lista.innerHTML = `
-            <div class="pedido">
-                <small><i>Nenhum pedido no momento 🍫</i></small>
-            </div>
-        `;
+        lista.innerHTML = `<div class="pedido"><i>Nenhum pedido 🍫</i></div>`;
         primeiraCarga = false;
         return;
     }
@@ -81,15 +76,13 @@ database.ref("pedidos").on("value", snapshot => {
                 ? pedido.sabores.join(", ")
                 : pedido.sabores || "");
 
-        const div = document.createElement("div");
-        div.className = "pedido";
+        const card = document.createElement("div");
+        card.className = "pedido";
 
-        // PC
-        div.addEventListener("click", () => abrirModal(pedido));
-        // CELULAR
-        div.addEventListener("touchstart", () => abrirModal(pedido));
+        // 🔥 FUNCIONA EM CELULAR
+        card.addEventListener("pointerdown", () => abrirModal(pedido));
 
-        div.innerHTML = `
+        card.innerHTML = `
             <strong>${pedido.nome || "Cliente"}</strong><br>
             <small>${pedido.data || ""} • ${pedido.hora || ""}</small><br><br>
 
@@ -106,20 +99,22 @@ database.ref("pedidos").on("value", snapshot => {
             <b>Frete:</b> R$ ${pedido.frete || "0.00"}<br>
             <b>Total:</b> <span class="total">R$ ${pedido.valor_final || "0.00"}</span>
 
-            <button class="botao-entregue"
-                onclick="event.stopPropagation(); entregarPedido('${id}')"
-                ontouchstart="event.stopPropagation(); entregarPedido('${id}')">
-                ✔ Entregue
-            </button>
+            <button class="botao-entregue">✔ Entregue</button>
         `;
 
-        lista.appendChild(div);
+        const botao = card.querySelector(".botao-entregue");
+        botao.addEventListener("pointerdown", (e) => {
+            e.stopPropagation();
+            entregarPedido(id);
+        });
+
+        lista.appendChild(card);
     });
 
     primeiraCarga = false;
 });
 
-// REMOVER PEDIDO
+// ===== REMOVER PEDIDO =====
 function entregarPedido(id) {
     if (confirm("Confirmar entrega do pedido?")) {
         database.ref("pedidos/" + id).remove();
