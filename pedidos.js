@@ -45,7 +45,6 @@ function abrirModal(pedido) {
     } else {
         modalTexto.textContent = "Pedido não informado.";
     }
-
     modal.style.display = "flex";
 }
 
@@ -53,11 +52,10 @@ function fecharModal() {
     modal.style.display = "none";
 }
 
-// LISTENER FIREBASE (CORRIGIDO)
+// LISTENER FIREBASE
 database.ref("pedidos").on("value", snapshot => {
     lista.innerHTML = "";
 
-    // 👉 SE NÃO EXISTIR NENHUM PEDIDO
     if (!snapshot.exists()) {
         lista.innerHTML = `
             <div class="pedido">
@@ -85,7 +83,11 @@ database.ref("pedidos").on("value", snapshot => {
 
         const div = document.createElement("div");
         div.className = "pedido";
-        div.onclick = () => abrirModal(pedido);
+
+        // PC
+        div.addEventListener("click", () => abrirModal(pedido));
+        // CELULAR
+        div.addEventListener("touchstart", () => abrirModal(pedido));
 
         div.innerHTML = `
             <strong>${pedido.nome || "Cliente"}</strong><br>
@@ -105,7 +107,8 @@ database.ref("pedidos").on("value", snapshot => {
             <b>Total:</b> <span class="total">R$ ${pedido.valor_final || "0.00"}</span>
 
             <button class="botao-entregue"
-                onclick="event.stopPropagation(); entregarPedido('${id}')">
+                onclick="event.stopPropagation(); entregarPedido('${id}')"
+                ontouchstart="event.stopPropagation(); entregarPedido('${id}')">
                 ✔ Entregue
             </button>
         `;
@@ -116,7 +119,7 @@ database.ref("pedidos").on("value", snapshot => {
     primeiraCarga = false;
 });
 
-// REMOVER
+// REMOVER PEDIDO
 function entregarPedido(id) {
     if (confirm("Confirmar entrega do pedido?")) {
         database.ref("pedidos/" + id).remove();
