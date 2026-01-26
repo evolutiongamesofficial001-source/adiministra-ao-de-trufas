@@ -25,15 +25,35 @@ function mostrarAlerta() {
     }, 3000);
 }
 
-// SEPARAR SABORES
+// SEPARAR SABORES (FORMATO ANTIGO)
 function separarSabores(texto) {
-    if (!texto) return [];
+    if (!texto || typeof texto !== "string") return [];
 
     return texto.split(";").flatMap(parte => {
         const [tipo, sabores] = parte.split(":");
         if (!sabores) return [];
         return sabores.split(",").map(s => `${tipo.trim()} – ${s.trim()}`);
     });
+}
+
+// NORMALIZAR SABORES (NOVO + ANTIGO)
+function obterSabores(pedido) {
+    // formato antigo
+    if (pedido.pedido) {
+        return separarSabores(pedido.pedido);
+    }
+
+    // formato novo (array)
+    if (Array.isArray(pedido.sabores)) {
+        return pedido.sabores;
+    }
+
+    // formato simples (string)
+    if (typeof pedido.sabores === "string") {
+        return pedido.sabores.split(",").map(s => s.trim());
+    }
+
+    return [];
 }
 
 // LISTENER FIREBASE
@@ -50,23 +70,33 @@ database.ref("pedidos").on("value", snapshot => {
 
         pedidosExistentes.add(id);
 
-        const sabores = separarSabores(pedido.pedido);
-        const saboresHTML = sabores.map(s => `<li>${s}</li>`).join("");
+        const sabores = obterSabores(pedido);
+
+        const saboresHTML = sabores.length > 0
+            ? `<b>Sabores:</b>
+               <div class="area-sabores">
+                   <ul>${sabores.map(s => `<li>${s}</li>`).join("")}</ul>
+               </div>`
+            : `<small><i>Sem sabores informados</i></small>`;
 
         const div = document.createElement("div");
         div.className = "pedido";
 
         div.innerHTML = `
-            <strong>${pedido.nome}</strong><br>
-            <small>${pedido.data} • ${pedido.hora}</small><br><br>
+            <strong>${pedido.nome || "Cliente"}</strong><br>
+            <small>${pedido.data || ""} • ${pedido.hora || ""}</small><br><br>
 
-            <b>Sabores:</b>
-            <div class="area-sabores">
-                <ul>${saboresHTML}</ul>
-            </div>
+            <b>Tipo:</b> ${pedido.tipo_entrega || "—"}<br>
+            <b>Endereço:</b><br>
+            <small>${pedido.endereco || "Retirada no local"}</small><br><br>
 
-            <b>Quantidade:</b> ${pedido.quantidade_total}<br>
-            <b>Total:</b> <span class="total">R$ ${pedido.valor_final}</span>
+            ${saboresHTML}
+
+            <b>Quantidade:</b> ${pedido.quantidade || 0}<br>
+            <b>Pagamento:</b> ${pedido.pagamento || "—"}<br>
+            <b>Subtotal:</b> R$ ${pedido.total || "0.00"}<br>
+            <b>Frete:</b> R$ ${pedido.frete || "0.00"}<br>
+            <b>Total:</b> <span class="total">R$ ${pedido.valor_final || "0.00"}</span>
 
             <button class="botao-entregue" onclick="entregarPedido('${id}')">
                 ✔ Entregue
