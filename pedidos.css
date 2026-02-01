@@ -2,31 +2,33 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
+    height: 100%;
+    overflow: hidden;
     font-family: "Segoe UI", Arial, sans-serif;
-    background: url("adm pedidos.jpeg") no-repeat center center fixed;
-    background-size: cover;
 }
 
-/* TOPO */
+body {
+    background: url("adm pedidos.jpeg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
 header {
+    height: 60px;
     background: rgba(255, 105, 180, 0.9);
-    padding: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    flex-shrink: 0;
     color: #4a0033;
     font-weight: bold;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
-/* BOTÃO VOLTAR */
 .btn-voltar {
     position: absolute;
     left: 12px;
@@ -36,70 +38,48 @@ header h1 {
     padding: 6px 12px;
     font-size: 1.1rem;
     cursor: pointer;
-    color: #7a1244;
 }
 
-.btn-voltar:active {
-    transform: scale(0.95);
-}
-
-/* AREA CENTRAL */
+/* CONTEÚDO */
 main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
     display: flex;
     justify-content: center;
-    padding: 15px;
 }
 
-/* LISTA */
+/* LISTA COM SCROLL */
 .lista {
     width: 100%;
     max-width: 420px;
-    max-height: 75vh;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
-/* CARD PEDIDO */
+/* CARD */
 .pedido {
     background: rgba(255, 255, 255, 0.93);
     border-radius: 18px;
     padding: 14px;
-    margin-bottom: 14px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     animation: aparecer 0.3s ease;
-
-    /* 🔥 MOBILE FIX */
     touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
     user-select: none;
 }
 
 @keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.pedido strong {
-    font-size: 1.05rem;
-    color: #7a1244;
-}
-
-.pedido small {
-    color: #555;
-}
-
-/* TOTAL */
 .total {
     color: #b10050;
     font-weight: bold;
 }
 
-/* BOTÃO ENTREGUE */
+/* BOTÃO */
 .botao-entregue {
     width: 100%;
     margin-top: 10px;
@@ -110,11 +90,6 @@ main {
     color: white;
     font-size: 1rem;
     font-weight: bold;
-    cursor: pointer;
-}
-
-.botao-entregue:active {
-    transform: scale(0.97);
 }
 
 /* ALERTA */
@@ -123,13 +98,10 @@ main {
     top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(180deg, #b8326a, #8a1e4b);
+    background: #b8326a;
     color: white;
     padding: 10px 18px;
     border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     z-index: 999;
 }
 
@@ -150,33 +122,4 @@ main {
     max-width: 400px;
     border-radius: 18px;
     padding: 18px;
-    text-align: left;
-    animation: aparecer 0.25s ease;
-}
-
-.modal-conteudo h3 {
-    margin-top: 0;
-    color: #7a1244;
-}
-
-.modal-conteudo pre {
-    white-space: pre-wrap;
-    word-break: break-word;
-    background: #ffe3ee;
-    padding: 12px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-}
-
-.fechar-modal {
-    width: 100%;
-    margin-top: 12px;
-    padding: 12px;
-    border: none;
-    border-radius: 14px;
-    background: #d63b7d;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
 }
